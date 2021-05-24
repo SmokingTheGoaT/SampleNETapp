@@ -12,11 +12,13 @@ namespace SampleNETapp.Services
     {
         private readonly IProductRepository _productRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public ProductService(IProductRepository productRepository, IUnitOfWork unitOfWork)
+        public ProductService(IProductRepository productRepository, ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
         {
             _productRepository = productRepository;
             _unitOfWork = unitOfWork;
+            _categoryRepository = categoryRepository;
         }
 
         public async Task<IEnumerable<Product>> ListAsync()
@@ -28,6 +30,9 @@ namespace SampleNETapp.Services
         {
             try
             {
+                var existingCategory = await _categoryRepository.FindByIdAsync(product.CategoryId);
+                if (existingCategory == null)
+                    return new ProductResponse("Invalid category.");
                 await _productRepository.AddAsync(product);
                 await _unitOfWork.CompleteAsync();
 

@@ -42,7 +42,9 @@ namespace SampleNETapp
             });
             
             services.AddScoped<ICategoryRepository, CategoryRespository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerGen(c =>

@@ -9,9 +9,7 @@ namespace SampleNETapp.Persistance.Repositories
 {
     public class CategoryRespository : BaseRepository, ICategoryRepository
     {
-        public CategoryRespository(AppDbContext context) : base(context)
-        {
-        }
+        public CategoryRespository(AppDbContext context) : base(context) { }
 
         public async Task<IEnumerable<Category>> ListAsync()
         {
